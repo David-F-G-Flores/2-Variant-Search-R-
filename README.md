@@ -14,7 +14,9 @@ Extract genes from object, Mouse Genome Informatics (MGI) nomenclature.
 mousegenes<-mousegenes$OntologyAnnotation.subject.primaryIdentifier
 ```
 
-A useful bioMart piece of code below. 
+A useful bioMart piece of code below.
+Generate a header for file.
 ```R
-mousegenes<-mousegenes$OntologyAnnotation.subject.primaryIdentifier
+header=("external_gene_name, ensembl_gene_id, btaurus_homolog_ensembl_gene, btaurus_homolog_associated_gene_name, description")
+
 ```
