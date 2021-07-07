@@ -1,8 +1,8 @@
 # Variant-Search-R
 
-Load intermine and list mines.
+Load bioMart
 
 ```R
-library(InterMineR)
-listMines()
+library(biomaRt)
+mouse = useMart("ensembl", dataset = "mmusculus_gene_ensembl")
 ```
