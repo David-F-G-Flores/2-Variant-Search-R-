@@ -68,7 +68,6 @@ variants<-do.call('rbind',variants)
 ```
 Merge back on the suppporting evidence. Merge supporting evidence with variants.
 ```R
-btaulr for ensembl number
 variants2 <- merge(btauLr,mousegenes, by="OntologyAnnotation.subject.primaryIdentifier")
 variantsMaster<- merge(variants2,variants,by.x="btaurus_homolog_ensembl_gene",by.y ="ensembl_gene_stable_id")
 ```
