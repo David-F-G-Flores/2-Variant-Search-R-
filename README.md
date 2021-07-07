@@ -1,8 +1,8 @@
 # Variant-Search-R
-This code follows on from the MGI-search-R- repository. 
-The final ``` mousegenes ``` object contains genes and supporting evidence.
+Below was used to search for Bos taurus homologs of the previously identified mouse genes associated with perinatal lethality.
+This code follows on from the MGI-search-R- repository, and uses the final ``` mousegenes ``` object which contains mouse genes and the supporting evidence.
 
-Because multiple studies (supporting evidence) on the same gene, the ``` mousegenes ``` object held duplicated genes. The object was sorted by publication and duplicate genes removed, using R.
+Because multiple studies (supporting evidence) of the same gene were identified, the ``` mousegenes ``` object held duplicated genes. The object was sorted by publication and duplicate genes removed, using R.
 
 Open bioMart library.
 ```R
@@ -38,7 +38,7 @@ cowinfo <- useEnsembl(biomart = "ensembl",
                    dataset = "btaurus_gene_ensembl", 
                    version = "94")
 ```
-To load btau SNP biomaRt
+To load btau SNP biomaRt.
 ```R
 snpmart <- useEnsembl(biomart = "ENSEMBL_MART_SNP", 
                    dataset = "btaurus_snp", 
