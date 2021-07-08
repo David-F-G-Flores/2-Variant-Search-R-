@@ -2,7 +2,7 @@
 The code below was used to search for Bos taurus homologs, of mouse genes associated with perinatal lethality.
 This code follows on from the repository "MGI-search-R-", and uses the final ``` mousegenes ``` object which contains mouse genes and the supporting evidence.
 
-Because multiple studies (supporting evidence) of the same gene were identified, the ``` mousegenes ``` object held duplicate genes records. The object was sorted by year of publication and duplicate genes removed, using R.
+Because multiple studies (supporting evidence) of the same gene were identified, the ``` mousegenes ``` object held duplicate genes records. The object was sorted by year of publication to retain the most recent, and duplicate genes removed. This was performed using R code not shown.
 
 Open bioMart library.
 ```R
