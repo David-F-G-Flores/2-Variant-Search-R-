@@ -14,8 +14,8 @@ Extract genes from ``` mousegenes ``` object, Mouse Genome Informatics (MGI) nom
 mousegenes2<-mousegenes$OntologyAnnotation.subject.primaryIdentifier
 ```
 
-A useful bioMart piece of code below to convert Nomenclature.
-Initiate Bos taurus list, query bioMart for ensembl Bos taurus homolog using MGI ID.  
+A useful bioMart piece of code below to convert Nomenclature from different sources.
+This code initiates a Bos taurus list, and queries bioMart for ensembl Bos taurus homolog, using MGI ID.  
 Populating this list may take some time.
 ```R
 btauLr<-list()
@@ -29,7 +29,7 @@ for (genes in mousegenes2){
 btauLr = do.call('rbind',btauLr)
 btauLr$OntologyAnnotation.subject.primaryIdentifier <- row.names(btauLr) ## rownames to column for a later merge
 ```
-Some genes from above did not return homologs using MGI ID however various other gene names are identified and may be rerun using the above code and changing the attributes and filters.
+Some mice genes queried above did not return homologs using MGI ID, however, various other gene names are identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no Bos taurus ensembl number. If working with a limited number of genes these alternative names may be helpful to rerun the analysis with some modifications to attributes and filters, however, if in doubt the ensembl website https://www.ensembl.org/index.html should be refered to.
 *Note* UMD3.1 Ensembl release 94 was updated to ARS-UCD1.2 during this project. Next command uses archived snp database.
 Using correct bioMar assemblies, biomaRt btau and btauSNP marts loaded. Gene start/end positions will be searched, and used to search for SNP within.
 
