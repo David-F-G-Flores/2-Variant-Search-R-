@@ -48,7 +48,7 @@ snpmart <- useEnsembl(biomart = "ENSEMBL_MART_SNP",
                    dataset = "btaurus_snp", 
                    version = "94")
 ```
-The code below loops over btau ensembl IDs, and returns the position of the gene. This is followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into external file on each iteration.
+The code below loops over btau ensembl IDs, and returns the position of the gene. This is followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into an external file on each iteration.
 ```R
 variants<-list()
 for (gene in btauLr$btaurus_homolog_ensembl_gene) {
@@ -70,7 +70,7 @@ for (gene in btauLr$btaurus_homolog_ensembl_gene) {
 }
 variants<-do.call('rbind',variants)
 ```
-Merge back on the suppporting evidence. Merge supporting evidence with variants.
+Merge back on the suppporting evidence. Second merge of supporting evidence with variants.
 ```R
 variants2 <- merge(btauLr,mousegenes, by="OntologyAnnotation.subject.primaryIdentifier")
 variantsMaster<- merge(variants2,variants,by.x="btaurus_homolog_ensembl_gene",by.y ="ensembl_gene_stable_id")
