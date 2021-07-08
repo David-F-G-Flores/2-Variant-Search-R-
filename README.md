@@ -29,7 +29,7 @@ for (genes in mousegenes2){
 btauLr = do.call('rbind',btauLr)
 btauLr$OntologyAnnotation.subject.primaryIdentifier <- row.names(btauLr) ## rownames to column for a later merge
 ```
-Some mice genes queried above did not return homologs using MGI ID, however, various other gene names are identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no Bos taurus ensembl number. If working with a limited number of genes these alternative names may be helpful to rerun the analysis with some modifications to attributes and filters, however, if in doubt the ensembl website https://www.ensembl.org/index.html should be refered to.
+Some mice genes queried above did not return homologs using MGI ID, however, various other gene names are identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no Bos taurus ensembl number. If working with a limited number of genes these alternative names may be helpful to rerun the analysis with some modifications to attributes and filters, however, if in doubt the ensembl website https://www.ensembl.org/index.html should be refered to. Also note the attribute ```"btaurus_homolog_orthology_confidence"``` which may help with filtering and identifying best genes if working with a large number.
 
 
 
