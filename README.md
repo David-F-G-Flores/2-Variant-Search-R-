@@ -48,7 +48,7 @@ snpmart <- useEnsembl(biomart = "ENSEMBL_MART_SNP",
                    dataset = "btaurus_snp", 
                    version = "94")
 ```
-The code below loops over btau ensembl IDs, and returns the position of the gene. This is followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into an external file on each iteration. Furthermore, additional 
+The code below loops over btau ensembl IDs, and returns the position of the gene. This is followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into an external file on each iteration. Furthermore, the consequence type may be filtered on the actual sift score instead of the consequence as is carried out below.
 ```R
 variants<-list()
 for (gene in btauLr$btaurus_homolog_ensembl_gene) {
@@ -57,16 +57,19 @@ for (gene in btauLr$btaurus_homolog_ensembl_gene) {
   chr=c(data[,3])
   start=data[,1]
   end=data[,2]
-  print('Got position')
-  SNPS<-getBM(c("ensembl_gene_stable_id","refsnp_id","chr_name","chrom_strand","allele","chrom_start","ensembl_type",
-                "consequence_type_tv","sift_prediction","sift_score","distance_to_transcript"), 
-              filters=c("start", "end","chr_name"),values=list(start,end,chr), mart=snpmart)
-  print('Got SNP')
-  TopSNPs=SNPS[SNPS$consequence_type_tv %in% c("transcript_ablation", "splice_acceptor_variant", "splice_donor_variant", 
-                                               "stop_gained", "frameshift_variant", "stop_lost", "start_lost", 
-                                               "transcript_amplification", "inframe_insertion", "inframe_deletion",
-                                               "missense_variant", "protein_altering_variant"),]
-  print('Filtered on consequence')
+  if(length(start)!=0){
+    print('Got position')
+    SNPS<-getBM(c("ensembl_gene_stable_id","refsnp_id","chr_name","chrom_strand","allele","chrom_start","ensembl_type",
+                  "consequence_type_tv","sift_prediction","sift_score","distance_to_transcript"), 
+                filters=c("start", "end","chr_name"),values=list(start,end,chr), mart=snpmart)
+    print('Got SNP')
+    TopSNPs=SNPS[SNPS$consequence_type_tv %in% c("transcript_ablation", "splice_acceptor_variant", "splice_donor_variant", 
+                                                 "stop_gained", "frameshift_variant", "stop_lost", "start_lost", 
+                                                 "transcript_amplification", "inframe_insertion", "inframe_deletion",
+                                                 "missense_variant", "protein_altering_variant"),]
+    variants[[gene]]<- TopSNPs
+    print('Filtered on consequence')
+    }
 }
 variants<-do.call('rbind',variants)
 ```
