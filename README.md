@@ -30,6 +30,9 @@ btauLr = do.call('rbind',btauLr)
 btauLr$OntologyAnnotation.subject.primaryIdentifier <- row.names(btauLr) ## rownames to column for a later merge
 ```
 Some mice genes queried above did not return homologs using MGI ID, however, various other gene names are identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no Bos taurus ensembl number. If working with a limited number of genes these alternative names may be helpful to rerun the analysis with some modifications to attributes and filters, however, if in doubt the ensembl website https://www.ensembl.org/index.html should be refered to.
+
+
+
 *Note* UMD3.1 Ensembl release 94 was updated to ARS-UCD1.2 during this project. Next command uses archived snp database.
 Using correct bioMar assemblies, biomaRt btau and btauSNP marts loaded. Gene start/end positions will be searched, and used to search for SNP within.
 
