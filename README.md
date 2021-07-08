@@ -26,7 +26,7 @@ for (genes in mousegenes2){
                              "btaurus_homolog_associated_gene_name","description"), filters= ("mgi_id"), values =genes,mart=mouse)
   btauLr[[genes]] <- data
 }
-btauLr = do.call('rbind',l)
+btauLr = do.call('rbind',btauLr)
 btauLr$OntologyAnnotation.subject.primaryIdentifier <- row.names(btauLr) ## rownames to column for a later merge
 ```
 Some genes from above did not return homologs using MGI ID however various other gene names are identified and may be rerun using the above code and changing the attributes and filters.
