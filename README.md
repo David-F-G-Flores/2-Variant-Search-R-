@@ -34,7 +34,7 @@ Some mice genes queried above did not return homologs using MGI ID, however, var
 
 
 *Note* UMD3.1 Ensembl release 94 was updated to ARS-UCD1.2 during this project. Next command uses archived snp database.
-Using correct bioMar assemblies, biomaRt btau and btauSNP marts loaded. Gene start/end positions will be searched, and used to search for SNP within.
+Using the correct bioMart assemblies, biomaRt btau and btauSNP marts were loaded. Gene start/end positions will be searched in btau, and used to search for SNP within the position using btauSNP.
 
 To load btau biomaRt.
 ```R
