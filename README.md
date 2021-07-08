@@ -21,6 +21,7 @@ Populating this list may take some time.
 btauLr<-list()
 
 for (genes in mousegenes2){
+  print(genes)
   data = getBM( attributes=c("external_gene_name","ensembl_gene_id","btaurus_homolog_ensembl_gene",
                              "btaurus_homolog_associated_gene_name","description"), filters= ("mgi_id"), values =genes,mart=mouse)
   btauLr[[genes]] <- data
