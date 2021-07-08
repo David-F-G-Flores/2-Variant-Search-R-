@@ -23,7 +23,7 @@ btauLr<-list()
 for (genes in mousegenes2){
   print(genes)
   data = getBM( attributes=c("external_gene_name","ensembl_gene_id","btaurus_homolog_ensembl_gene",
-                             "btaurus_homolog_associated_gene_name","description"), filters= ("mgi_id"), values =genes,mart=mouse)
+                             "btaurus_homolog_associated_gene_name","description","btaurus_homolog_orthology_confidence"), filters= ("mgi_id"), values =genes,mart=mouse)
   btauLr[[genes]] <- data
 }
 btauLr = do.call('rbind',btauLr)
@@ -48,7 +48,7 @@ snpmart <- useEnsembl(biomart = "ENSEMBL_MART_SNP",
                    dataset = "btaurus_snp", 
                    version = "94")
 ```
-The code below loops over btau ensembl IDs, and returns the position of the gene. This is followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into an external file on each iteration.
+The code below loops over btau ensembl IDs, and returns the position of the gene. This is followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into an external file on each iteration. Furthermore, additional 
 ```R
 variants<-list()
 for (gene in btauLr$btaurus_homolog_ensembl_gene) {
