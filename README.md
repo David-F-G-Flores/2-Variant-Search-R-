@@ -1,5 +1,5 @@
 # Variant-Search-R
-The code below was used to search for the Bos taurus homologs, of the mouse genes associated with perinatal lethality.
+The code below was used to search for the *Bos taurus* homologs, of the mouse genes associated with perinatal lethality.
 This code follows on from the repository "MGI-search-R-", and uses the final ``` mousegenes ``` object which contains mouse genes and the supporting evidence.
 
 Because multiple studies (supporting evidence) of the same gene were identified, the ``` mousegenes ``` object held duplicate genes records. The object was sorted by the year of publication to retain the most recent, and duplicate genes removed. R code not shown for this sorting operation.
@@ -15,7 +15,7 @@ mousegenes2<-mousegenes$OntologyAnnotation.subject.primaryIdentifier
 ```
 
 A useful bioMart piece of code below to convert Nomenclature from different sources.
-This code initiates a Bos taurus list, and queries bioMart for ensembl Bos taurus homolog, using MGI ID.  
+This code initiates a Bos taurus list, and queries bioMart for ensembl *Bos taurus* homolog, using MGI ID.  
 Populating this list may take some time.
 ```R
 btauLr<-list()
@@ -29,7 +29,7 @@ for (genes in mousegenes2){
 btauLr = do.call('rbind',btauLr)
 btauLr$OntologyAnnotation.subject.primaryIdentifier <- row.names(btauLr) ## rownames to column for a later merge
 ```
-Some mice genes queried above did not return homologs using MGI ID, however, various other gene names are identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no Bos taurus ensembl number. If working with a limited number of genes these alternative names may be helpful to rerun the analysis with some modifications to attributes and filters, however, if in doubt the ensembl website https://www.ensembl.org/index.html should be refered to. Also note the attribute ```"btaurus_homolog_orthology_confidence"``` which may help with filtering and identifying best genes if working with a large number.
+Some mice genes queried above did not return homologs using MGI ID, however, various other gene names were identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no *Bos taurus* ensembl number. Furthermore, numerous ensembl numbers were retrieved e.g. *ANK2* returned two *Bos taurus* ensembl numbers, "ENSBTAG00000054394" and "ENSBTAG00000002392" however validating these through the ensembl browser, it appears as those this issue is related to changing of genome versions. All homologs were extracted and usd to query the desired *Bos taurus* genome. If working with a limited number of genes these alternative names may be helpful to rerun the analysis with some modifications to the attributes and filters, however, if in doubt the ensembl website https://www.ensembl.org/index.html should be referred to. Also note the attribute ```"btaurus_homolog_orthology_confidence"``` which may help with filtering and identifying best genes if working with a large number.
 
 
 
