@@ -1,6 +1,6 @@
 # Variant-Search-R
 The code below was used to search for the *Bos taurus* homologs, of the mouse genes associated with prenatal lethality.
-This code follows on from the repository "MGI-search-R-", and used the final ``` mousegenes ``` object which contained mouse genes and the supporting evidence.
+This code follows on from the repository "MGI-search-R-", and used the final ``` mousegenes ``` object which contained annotated mouse genes.
 
 Because multiple studies (supporting evidence) of the same gene were identified, the ``` mousegenes ``` object held duplicate genes records. The object was sorted by the year of publication to retain the most recent, and duplicate genes removed. R code not shown for this sorting operation.
 
