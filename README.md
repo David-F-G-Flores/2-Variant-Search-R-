@@ -1,24 +1,24 @@
 # Variant-Search-R
 The code below was used to search for the *Bos taurus* homologs, of the mouse genes associated with prenatal lethality.
-This code follows on from the repository "MGI-search-R-", and uses the final ``` mousegenes ``` object which contains mouse genes and the supporting evidence.
+This code follows on from the repository "MGI-search-R-", and used the final ``` mousegenes ``` object which contained mouse genes and the supporting evidence.
 
 Because multiple studies (supporting evidence) of the same gene were identified, the ``` mousegenes ``` object held duplicate genes records. The object was sorted by the year of publication to retain the most recent, and duplicate genes removed. R code not shown for this sorting operation.
 
-This method uses biomaRt library to find homologs, the chromosomal positions of the genes, variants within and associated SIFT score information. Specific genome assemblys are requested in these biomaRt requests.
+This method used the biomaRt library to find homologs, the chromosomal positions of the genes, variants within and associated SIFT score information. Specific genome assemblys were requested in these biomaRt requests.
 
 Open bioMart library.
 ```R
 library(biomaRt)
 mouse = useMart("ensembl", dataset = "mmusculus_gene_ensembl")
 ```
-Extract genes from ``` mousegenes ``` object, Mouse Genome Informatics (MGI) nomenclature.
+Extracted genes from ``` mousegenes ``` object, Mouse Genome Informatics (MGI) nomenclature.
 ```R
 mousegenes2<-mousegenes$OntologyAnnotation.subject.primaryIdentifier
 ```
 
-Useful bioMart code shown below to convert Nomenclature from different sources.
+Useful bioMart code below to convert Nomenclature from different sources.
 This code initiates a Bos taurus list, and queries bioMart for ensembl *Bos taurus* homolog, using MGI ID.  
-Populating this list may take some time.
+Populating this list took some time and was saved into a csv as a security measure because of a lost connection, code not shown here.
 ```R
 btauLr<-list()
 
@@ -31,12 +31,12 @@ for (genes in mousegenes2){
 btauLr = do.call('rbind',btauLr)
 btauLr$OntologyAnnotation.subject.primaryIdentifier <- row.names(btauLr) ## rownames to column for a later merge
 ```
-Some mice genes in the query above did not return homologs using MGI ID, however, various other gene names were identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no *Bos taurus* ensembl number. Furthermore, numerous ensembl numbers were retrieved e.g. *ANK2* returned two *Bos taurus* ensembl numbers, "ENSBTAG00000054394" and "ENSBTAG00000002392" however validating these through the ensembl browser, it appears as those this issue is related to changing of genome versions. All homologs were extracted and usd to query the desired *Bos taurus* genome. If working with a limited number of genes these alternative names may be helpful to rerun the analysis with some modifications to the attributes and filters, however, if in doubt the ensembl website https://www.ensembl.org/index.html should be referred to. Also note the attribute ```"btaurus_homolog_orthology_confidence"``` which may help with filtering and identifying best genes if working with a large number.
+Some mice genes in the query above did not return homologs using MGI ID, however, various other gene names were identified e.g. "MGI:104982" returned *CEBPG* and "ENSMUSG00000056216" which is mouse ensembl nomenclature, but no *Bos taurus* ensembl number. Furthermore, numerous ensembl numbers were retrieved e.g. *ANK2* returned two *Bos taurus* ensembl numbers, "ENSBTAG00000054394" and "ENSBTAG00000002392" however validating these through the ensembl browser, this issue appeared to be related to changing of genome versions. All homologs were extracted and used to query the desired *Bos taurus* genome. If working with a limited number of genes, these alternative names may be helpful to rerun the analysis with some modifications to the attributes and filters. If in doubt the ensembl website https://www.ensembl.org/index.html should be referred to. Also note the attribute ```"btaurus_homolog_orthology_confidence"``` which may help with filtering and identifying best genes if working with a large number.
 
 
 
-*Note* UMD3.1 Ensembl release 94 was updated to ARS-UCD1.2 during this project. Next command uses archived snp database.
-Using the correct bioMart assemblies, biomaRt btau and btauSNP marts were loaded. Gene start/end positions will be searched in btau, and used to search for SNP within the position using btauSNP.
+*Note* *Bost taurus* UMD3.1 Ensembl release 94 was updated to ARS-UCD1.2 during this project. Next command uses archived database.
+Using the correct bioMart assemblies, biomaRt btau and btauSNP marts were loaded. Gene start/end positions was searched in btau, and used to search for SNP within using btauSNP.
 
 To load btau biomaRt.
 ```R
@@ -50,7 +50,7 @@ snpmart <- useEnsembl(biomart = "ENSEMBL_MART_SNP",
                    dataset = "btaurus_snp", 
                    version = "94")
 ```
-The code below loops over btau ensembl IDs, and returns the position of the gene. This is followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into an external file on each iteration. Furthermore, the consequence type may be filtered on the actual sift score instead of the consequence as is carried out below but should be aware not all variants are associated with a SIFT score and is blank.
+The code below looped over btau ensembl IDs, and returned the position of the gene. This was followed by a query for snp within that location. These variants are further filtered on sift score consequence, and stored into ```TopSNPs```. This can take some time, consider saving ```TopSNPs``` into an external file on each iteration. Furthermore, the consequence type may be filtered on the actual sift score instead of the consequence as is carried out below but should be aware not all variants are associated with a SIFT score and is blank.
 ```R
 variants<-list()
 for (gene in btauLr$btaurus_homolog_ensembl_gene) {
