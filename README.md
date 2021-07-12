@@ -14,7 +14,7 @@ Extract genes from ``` mousegenes ``` object, Mouse Genome Informatics (MGI) nom
 mousegenes2<-mousegenes$OntologyAnnotation.subject.primaryIdentifier
 ```
 
-A useful bioMart piece of code below to convert Nomenclature from different sources.
+Useful bioMart code shown below to convert Nomenclature from different sources.
 This code initiates a Bos taurus list, and queries bioMart for ensembl *Bos taurus* homolog, using MGI ID.  
 Populating this list may take some time.
 ```R
