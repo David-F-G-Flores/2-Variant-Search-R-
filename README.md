@@ -4,6 +4,8 @@ This code follows on from the repository "MGI-search-R-", and uses the final ```
 
 Because multiple studies (supporting evidence) of the same gene were identified, the ``` mousegenes ``` object held duplicate genes records. The object was sorted by the year of publication to retain the most recent, and duplicate genes removed. R code not shown for this sorting operation.
 
+This method uses biomaRt library to find homologs, the chromosomal positions of the genes, variants within and associated SIFT score information. Specific genome assemblys are requested in these biomaRt requests.
+
 Open bioMart library.
 ```R
 library(biomaRt)
